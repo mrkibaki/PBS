@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "/Users/kibalin/.local/share/virtualenvs/backend-DZOMgmyM/bin/python",
+    "files.watcherExclude": {
+        "**/target": true
+    }
+}

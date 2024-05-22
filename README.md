@@ -8,7 +8,7 @@ This is a project for Personal used Blog System (PBS). The aim of this project i
 
 ## 3. Readers can comment on blog posts. Bloggers can reply to comments, delete inappropriate comments.
 
-## 4. Provide a search box that allows users to search for blog posts based on keywords. It can be filtered by title, content, author, and other conditions.
+## 4. `Provide a search box that allows users to search for blog posts based on keywords. It can be filtered by title, content, author, and other conditions.
 
 The interface should be clear, concise, and easy to navigate. Responsive design should be supported to adapt to different devices.
 
