@@ -1,17 +1,15 @@
 // App.tsx
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WelcomePage from "./WelcomePage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import HomePage from "./HomePage";
-import { UserContext } from "../components/UserContext";
+import { UserProvider } from "../components/UserContext";
 
 const App: React.FC = () => {
-  const [user, setUser] = useState(null);
-
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserProvider>
       <Router>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
@@ -20,7 +18,7 @@ const App: React.FC = () => {
           <Route path="/home" element={<HomePage />} />
         </Routes>
       </Router>
-    </UserContext.Provider>
+    </UserProvider>
   );
 };
 

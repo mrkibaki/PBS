@@ -1,16 +1,42 @@
-// RegisterPage.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // TODO: Add registration logic here
-    navigate("/home");
+
+    if (!username || !password) {
+      setMessage(
+        "Opps, something is missing, did you leave anything blank? :3"
+      );
+      return;
+    }
+
+    try {
+      const newUser = await fetch("http://localhost:8000/api/register/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (newUser.ok) {
+        navigate("/login");
+        return;
+      }
+
+      const result = await newUser.json();
+      setMessage(result.message || "An error occurred");
+    } catch (error) {
+      console.error(error);
+      setMessage("An error occurred");
+    }
   };
 
   return (
@@ -32,6 +58,7 @@ const RegisterPage: React.FC = () => {
         />
       </label>
       <input type="submit" value="Register" />
+      {message && <p>{message}</p>}
     </form>
   );
 };

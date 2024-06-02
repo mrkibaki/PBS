@@ -21,6 +21,9 @@ const LoginPage: React.FC = () => {
 
     if (response.ok) {
       const data = await response.json();
+      localStorage.setItem("token", data.token);
+      console.log(data);
+      console.log("token is: " + data.token);
       return data;
     } else {
       throw new Error("Error during login");

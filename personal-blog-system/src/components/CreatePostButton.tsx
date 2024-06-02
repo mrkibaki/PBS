@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Fab, Modal, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
+
+interface CreatePostButtonProps {
+  username: string | null;
+}
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -20,11 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreatePostButton: React.FC = () => {
+const CreatePostButton: React.FC<CreatePostButtonProps> = ({ username }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  console.log("user in createpostbutton user is : " + username);
 
   const handleOpen = () => {
     setOpen(true);
@@ -35,23 +40,26 @@ const CreatePostButton: React.FC = () => {
   };
 
   const handlePublish = () => {
+    const token = localStorage.getItem("token");
     fetch("http://127.0.0.1:8000/posts/create/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
       },
       body: JSON.stringify({
-        username: "dummy-user", // replace with actual username
-        userAvatar: "dummy-user-avatar-url", // replace with actual avatar URL
+        username: username,
+        userAvatar: "http://example.com/avatar.jpg", // replace with actual avatar URL
         title: title,
         content: content,
-        imageUrl: "dummy-user-image-url", // replace with actual image URL
+        imageUrl: "http://example.com/image.jpg", // replace with actual image URL
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
         handleClose();
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);

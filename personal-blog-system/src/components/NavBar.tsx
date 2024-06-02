@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
   return (
     <IconContext.Provider value={{ size: "1.5em" }}>
       <div className="navbar">
-        <Link to="/" className="nav-item">
+        <Link to="/home" className="nav-item">
           <div className="icon-container">
             <FaHome />
           </div>

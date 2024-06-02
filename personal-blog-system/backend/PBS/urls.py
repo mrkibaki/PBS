@@ -22,5 +22,6 @@ urlpatterns = [
     path('posts/create/', views.create_post, name='create_post'),
     path('api/login', views.login_view, name='login'),
     path('api/logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('api/register/', RegisterView.as_view(), name='register')
+    path('api/register/', views.register, name='register'),
+    path('posts/delete/<str:blogId>/', views.delete_post, name='delete_post'),
 ]

@@ -1,5 +1,7 @@
 // components/Post.tsx
 import React from "react";
+import { useState } from "react";
+import Modal from "react-modal";
 
 interface PostProps {
   blogId: string;
@@ -9,6 +11,7 @@ interface PostProps {
   title: string;
   content: string;
   imageUrl?: string;
+  onDelete: (blogId: string) => void;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -19,8 +22,22 @@ const Post: React.FC<PostProps> = ({
   title,
   content,
   imageUrl,
+  onDelete,
 }) => {
-  console.log(blogId);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete(blogId);
+    closeModal();
+  };
 
   return (
     <div className="post">
@@ -37,6 +54,15 @@ const Post: React.FC<PostProps> = ({
       <div className="post-footer">
         <button className="like-button">Like</button>
         <button className="comment-button">Comments</button>
+        <button className="Delete" onClick={openModal}>
+          Delete
+        </button>
+        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+          <h2>Confirm Delete</h2>
+          <p>Are you sure you want to delete this post?</p>
+          <button onClick={closeModal}>Cancel</button>
+          <button onClick={handleDelete}>Confirm</button>
+        </Modal>
       </div>
     </div>
   );

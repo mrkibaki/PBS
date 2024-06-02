@@ -7,7 +7,7 @@ import { UserContext } from "../components/UserContext";
 
 const HomePage: React.FC = () => {
   const { user } = useContext(UserContext);
-
+  console.log("user in homepage is :", user);
   return (
     <div className="App">
       <NavBar />
@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
       <div style={{ paddingTop: "64px" }}>
         <PostList />
       </div>
-      <CreatePostButton />
+      <CreatePostButton username={user ? user.username : null} />
     </div>
   );
 };
